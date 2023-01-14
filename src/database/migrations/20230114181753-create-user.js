@@ -1,16 +1,28 @@
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
+
+const { ROLES } = require('../constants');
+const { enumArray } = require('../helper');
+
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('role', {
+    await queryInterface.createTable('user', {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.STRING
       },
-      name: {
+      username: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+      },
+      password: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      role: {
+        type: Sequelize.ENUM(...enumArray(ROLES)),
+        allowNull: false,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -26,6 +38,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('role');
+    await queryInterface.dropTable('user');
   }
 };
