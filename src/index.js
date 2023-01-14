@@ -13,5 +13,7 @@ app.use('/', router)
 app.use(errorHandler)
 
 http.listen(PORT, () => {
+    console.log(`\n===========================\n`)
     console.log(`Server is up on port ${PORT}`)
+    console.log(`\n===========================\n`)
 })
