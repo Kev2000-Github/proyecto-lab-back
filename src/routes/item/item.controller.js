@@ -58,9 +58,12 @@ module.exports.addItemToGroup = async ({itemId, groupId}) => {
     if(!group) throw HttpStatusError.notFound("Group not found")
     const itemGroup = await Item.findOne({
         where: {id: itemId},
-        include: Group
+        include: {
+            model: Group,
+            where: {id: groupId}
+        }
     })
-    if(itemGroup.Groups.length > 0){
+    if(itemGroup){
         throw HttpStatusError.conflict("This item is already registered")
     }
 

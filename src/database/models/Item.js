@@ -8,16 +8,29 @@ module.exports = (sequelize, DataTypes) => {
       Item.belongsToMany(models.Group, {
         through: models.ItemGroup
       })
+      Item.belongsToMany(models.Subsidiary, {
+        through: models.ItemSubsidiary
+      })
     }
   }
   Item.init({
+    id: {
+      allowNull: false,
+      primaryKey: true,
+      type: DataTypes.UUIDV4
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    description: DataTypes.STRING,
-    photo: DataTypes.TEXT,
-    deleted_at: DataTypes.DATE
+    description: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    photo: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    }
   }, {
     sequelize,
     modelName: 'Item',

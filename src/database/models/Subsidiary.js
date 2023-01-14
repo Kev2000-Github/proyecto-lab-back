@@ -3,19 +3,14 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Group extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+  class Subsidiary extends Model {
     static associate(models) {
-      Group.belongsToMany(models.Item, {
-        through: models.ItemGroup
+      Subsidiary.belongsToMany(models.Item, {
+        through: models.ItemSubsidiary
       })
     }
   }
-  Group.init({
+  Subsidiary.init({
     id: {
       allowNull: false,
       primaryKey: true,
@@ -27,11 +22,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    tableName: 'group',
-    modelName: 'Group',
+    modelName: 'Subsidiary',
+    tableName: 'subsidiary',
     underscored: true,
     timestamps: true,
     paranoid: true
   });
-  return Group;
+  return Subsidiary;
 };
