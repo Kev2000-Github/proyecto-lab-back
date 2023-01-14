@@ -8,7 +8,7 @@
     "start": "node ./src/index.js",
     "dev": "nodemon ./src/index.js",
     "db:migrate": "npx sequelize db:migrate",
-    "db:gen": "npx sequelize model:generate <...args>"
+    "model:gen": "npx sequelize model:generate"
   },
   "keywords": [],
   "author": "",
