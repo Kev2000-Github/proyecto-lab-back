@@ -7,10 +7,17 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
     }
   }
-  
+
   Role.init({
-    id: DataTypes.STRING,
-    name: DataTypes.STRING
+    id: {
+      allowNull: false,
+      primaryKey: true,
+      type: DataTypes.UUIDV4
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'Role',
