@@ -4,7 +4,7 @@ const config = {
   database: process.env.HOST_DATABASE ?? "pruebas",
   host: process.env.HOST_HOST ?? "127.0.0.1",
   dialect: "mysql",
-  logging: process.env.HOST_LOGGING ?? false
+  logging: process.env.HOST_LOGGING ? process.env.HOST_LOGGING === 'true' : false
 }
 
 module.exports = {

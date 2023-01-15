@@ -52,3 +52,13 @@ module.exports.post_item_group = controllerWrapper(async (req, res) => {
     }
     res.json({data})
 })
+
+module.exports.delete_item_group = controllerWrapper(async (req, res) => {
+    const {itemId, groupId} = req.params
+    const itemGroup = await controller.removeItemToGroup({itemId, groupId})
+    const data = {
+        item: responseData(itemGroup.item).data,
+        group: groupResponse(itemGroup.group).data
+    }
+    res.json({data})
+})

@@ -63,11 +63,24 @@ module.exports.addItemToGroup = async ({itemId, groupId}) => {
             where: {id: groupId}
         }
     })
-    if(itemGroup){
-        throw HttpStatusError.conflict("This item is already registered")
-    }
-
+    if(itemGroup) throw HttpStatusError.conflict("This item is already registered")
     await item.addGroup(groupId)
+    return {item, group}
+}
 
+module.exports.removeItemToGroup = async ({itemId, groupId}) => {
+    const item = await Item.findByPk(itemId)
+    if(!item) throw HttpStatusError.notFound("Item not found")
+    const group = await Group.findByPk(groupId)
+    if(!group) throw HttpStatusError.notFound("Group not found")
+    const itemGroup = await Item.findOne({
+        where: {id: itemId},
+        include: {
+            model: Group,
+            where: {id: groupId}
+        }
+    })
+    if(!itemGroup) throw HttpStatusError.conflict("This item is not in this group")
+    await item.removeGroup(groupId)
     return {item, group}
 }

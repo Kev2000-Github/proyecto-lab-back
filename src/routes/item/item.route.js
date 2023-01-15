@@ -39,6 +39,13 @@ router.post(
     view.post_item_group
     )
 
+router.delete(
+    '/:itemId/:groupId', 
+    validateRequestSchema(require(resolve(__dirname, 'schemas', 'in', 'item.in-delete-item-group.schema.js'))),
+    validateResponseSchema(require(resolve(__dirname, 'schemas', 'out', 'item.out-delete-item-group.schema.js'))),
+    view.delete_item_group
+    )
+
 module.exports = {
     itemRouter: router
 }
