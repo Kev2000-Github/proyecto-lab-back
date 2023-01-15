@@ -17,6 +17,12 @@ module.exports.get_group = controllerWrapper(async (req, res) => {
     res.json({data})
 })
 
+module.exports.get_group_group_id = controllerWrapper(async (req, res) => {
+    const {groupId} = req.params
+    const group = await controller.getGroup({groupId})
+    res.json(responseData(group))
+})
+
 module.exports.post_group = controllerWrapper(async (req, res) => {
     const {name} = req.body
     const group = await controller.createGroup({name})

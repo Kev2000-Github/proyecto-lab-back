@@ -18,6 +18,13 @@ router.post(
     view.post_item
     )
 
+router.get(
+    '/:itemId', 
+    validateRequestSchema(require(resolve(__dirname, 'schemas', 'in', 'item.in-get-item-item-id.schema.js'))),
+    validateResponseSchema(require(resolve(__dirname, 'schemas', 'out', 'item.out-get-item-item-id.schema.js'))),
+    view.get_item_item_id
+    )
+
 router.put(
     '/:itemId', 
     validateRequestSchema(require(resolve(__dirname, 'schemas', 'in', 'item.in-put-item.schema.js'))),

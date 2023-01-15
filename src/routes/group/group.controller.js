@@ -7,6 +7,12 @@ module.exports.getAllGroups = async () => {
     return groups
 }
 
+module.exports.getGroup = async ({groupId}) => {
+    const group = await Group.findByPk(groupId)
+    if(!group) throw HttpStatusError.notFound("Group not found")
+    return group
+}
+
 module.exports.createGroup = async ({name}) => {
     const group = await Group.create({name, id: uuid.v4()})
     return group

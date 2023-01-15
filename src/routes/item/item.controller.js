@@ -84,3 +84,9 @@ module.exports.removeItemToGroup = async ({itemId, groupId}) => {
     await item.removeGroup(groupId)
     return {item, group}
 }
+
+module.exports.getItem = async ({itemId}) => {
+    const item = await Item.findByPk(itemId)
+    if(!item) throw HttpStatusError.notFound("Item not found")
+    return item
+}

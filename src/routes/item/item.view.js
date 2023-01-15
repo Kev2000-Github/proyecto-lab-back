@@ -62,3 +62,9 @@ module.exports.delete_item_group = controllerWrapper(async (req, res) => {
     }
     res.json({data})
 })
+
+module.exports.get_item_item_id = controllerWrapper(async (req, res) => {
+    const {itemId} = req.params
+    const item = await controller.getItem({itemId})
+    res.json(responseData(item))
+})

@@ -11,6 +11,13 @@ router.get(
     view.get_group
     )
 
+router.get(
+    '/:groupId', 
+    validateRequestSchema(require(resolve(__dirname, 'schemas', 'in', 'group.in-get-group-group-id.schema.js'))),
+    validateResponseSchema(require(resolve(__dirname, 'schemas', 'out', 'group.out-get-group-group-id.schema.js'))),
+    view.get_group_group_id
+    )
+
 router.post(
     '/', 
     validateRequestSchema(require(resolve(__dirname, 'schemas', 'in', 'group.in-post-group.schema.js'))),
