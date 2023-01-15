@@ -9,7 +9,7 @@ const validateRequestSchema = schema => controllerWrapper((req, res, next) => {
   const {body, params, query, headers} = req
   const validate = ajv.compile(schema)
   const valid = validate({body, params, query, headers})
-  if(!valid) throw HttpStatusError.badRequest({ message: errorFormatter(validate.errors)})
+  if(!valid) throw HttpStatusError.badRequest(errorFormatter(validate.errors))
   next()
 })
 

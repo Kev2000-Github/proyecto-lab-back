@@ -7,7 +7,8 @@ module.exports = {
           name: {type: "string"},
           description: {type: "string"},
           photo: {type: "string"}
-        }
+        },
+        required: ["name"]
       },
       params: {
         type: "object"

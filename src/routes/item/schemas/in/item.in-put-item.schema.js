@@ -2,7 +2,12 @@ module.exports = {
     type: "object",
     properties: {
       body: {
-        type: "object"
+        type: "object",
+        properties: {
+          name: {type: "string"},
+          description: {type: "string"},
+          photo: {type: "string"}
+        }
       },
       params: {
         type: "object",

@@ -43,7 +43,7 @@ const verifyPassword = async (password, hash) => {
 const errorFormatter = errors => {
     return errors.reduce((message, err) => {
         return `${message} ${err.instancePath.replace(/\//g, '')} ${err.message}`
-    }, '').trim().replace(/\n/g, '')
+    }, '').trim().replace(/\n/g, '').replace(/\'/g, '')
 }
 
 module.exports = {
