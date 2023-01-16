@@ -1,0 +1,89 @@
+[33mcommit e44c34d1b65f28d90407c5d0b2c8958f450acde7[m[33m ([m[1;36mHEAD -> [m[1;32mdeibys[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Author: chengkev <chengkev2000@gmail.com>
+Date:   Sun Jan 15 16:12:34 2023 -0400
+
+    fix: schemavalidators error message formatter
+
+[33mcommit 35756d528e19351c57c370220f72bb405f1cc9cc[m
+Author: chengkev <chengkev2000@gmail.com>
+Date:   Sat Jan 14 21:28:35 2023 -0400
+
+    feat: add get group and item by id
+
+[33mcommit 5fdc04e34be2badbe5668724acf8520c0720e40e[m
+Author: chengkev <chengkev2000@gmail.com>
+Date:   Sat Jan 14 20:48:22 2023 -0400
+
+    feat: add item delete group
+
+[33mcommit fd2118e5f465e5584b3df65590baab871ca59060[m
+Author: chengkev <chengkev2000@gmail.com>
+Date:   Sat Jan 14 16:36:52 2023 -0400
+
+    fix: gitignore add .env
+
+[33mcommit b72499551fc55a9cd7013f6c4bd09cb613abd64c[m
+Author: chengkev <chengkev2000@gmail.com>
+Date:   Sat Jan 14 16:01:35 2023 -0400
+
+    feat: add command drop database
+
+[33mcommit 03dcc8c01b71586504927d5ac110beaa83c2d4cb[m
+Author: chengkev <chengkev2000@gmail.com>
+Date:   Sat Jan 14 15:57:43 2023 -0400
+
+    feat: add session model
+
+[33mcommit 12547aec66b78a651fbd75b704abbdb143a045b1[m
+Author: chengkev <chengkev2000@gmail.com>
+Date:   Sat Jan 14 15:41:30 2023 -0400
+
+    feat: add agent model
+
+[33mcommit 874864bb9b0c7ee1d19aa9f6555aed7edea558dc[m
+Author: chengkev <chengkev2000@gmail.com>
+Date:   Sat Jan 14 14:35:09 2023 -0400
+
+    feat: add user model and config refactor
+
+[33mcommit 8c4ffa823176b9f4a2276d46f678546d072ec4c6[m
+Author: chengkev <chengkev2000@gmail.com>
+Date:   Sat Jan 14 13:07:44 2023 -0400
+
+    fix: fresh start command create db too
+
+[33mcommit 6e958f48ebb2e27f5d9dd1059cb6513d71d7eb80[m
+Author: chengkev <chengkev2000@gmail.com>
+Date:   Sat Jan 14 12:47:22 2023 -0400
+
+    fix role id issue and add command fresh start
+
+[33mcommit b1dc5c9860c1f4957ab408bee00753f66a01f058[m
+Author: chengkev <chengkev2000@gmail.com>
+Date:   Sat Jan 14 12:34:46 2023 -0400
+
+    fix: script model:gen
+
+[33mcommit 56df00f4c88224fa19fde2f6212dd07d4e4ebcac[m
+Author: chengkev <chengkev2000@gmail.com>
+Date:   Sat Jan 14 12:32:51 2023 -0400
+
+    feat: add role model
+
+[33mcommit eeddfa05288fbb737b3936a78b83538c18a015c2[m
+Author: chengkev <chengkev2000@gmail.com>
+Date:   Sat Jan 14 12:16:43 2023 -0400
+
+    feat: refactor and add models
+
+[33mcommit b0897070e6fb01b0e9f27b8edd7d7b9d335dcefb[m
+Author: chengkev <chengkev2000@gmail.com>
+Date:   Sat Jan 14 11:37:02 2023 -0400
+
+    feat: add group and item routes
+
+[33mcommit 925baf057f02ee762abc89bfefb35faee605e884[m
+Author: chengkev <chengkev2000@gmail.com>
+Date:   Fri Jan 13 16:32:28 2023 -0400
+
+    feat: add gitignore
