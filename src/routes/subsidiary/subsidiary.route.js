@@ -1,4 +1,4 @@
-const {router} = require ('express')
+const {Router} = require ('express')
 const router = Router();
 const {resolve} = require ('path')
 const view = require ('./subsidiary.view')
@@ -19,14 +19,14 @@ router.get(
 )
 
 router.delete(
-    '/',
+    '/:subsidiaryId',
     validateRequestSchema (require(resolve(__dirname,'schemas', 'in', 'subsidiary.in-delete-subsidiary.schema.js'))),
     validateResponseSchema (require(resolve(__dirname,'schemas', 'out', 'subsidiary.out-delete-subsidiary.schema.js' ))),
     view.delete_subsidiary
 )
 
 router.put(
-    '/',
+    '/:subsidiaryId',
     validateRequestSchema (require(resolve(__dirname,'schemas', 'in', 'subsidiary.in-put-subsidiary.schema.js'))),
     validateResponseSchema (require(resolve(__dirname,'schemas', 'out', 'subsidiary.out-put-subsidiary.schema.js' ))),
     view.put_subsidiary
@@ -38,3 +38,7 @@ router.post(
     validateResponseSchema (require(resolve(__dirname,'schemas', 'out', 'subsidiary.out-post-subsidiary.schema.js' ))),
     view.post_subsidiary
 )
+
+module.exports = {
+    subsidiaryRouter: router
+}

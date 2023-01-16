@@ -10,7 +10,7 @@ const responseData = (subsidiary) => ({
 module.exports.subsidiaryResponse = responseData
 
 module.exports.get_subsidiary = controllerWrapper(async (req, res) => {
-    const subsidiarys = await controller.getAllsubsidiarys()
+    const subsidiarys = await controller.getAllsubsidiary()
     const data = subsidiarys.map(subsidiary => {
         return responseData(subsidiary).data
     })
