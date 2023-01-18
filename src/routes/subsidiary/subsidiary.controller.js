@@ -2,30 +2,30 @@ const {Subsidiary , sequelize}= require('../../database/models')
 const uuid = require ('uuid')
 const { HttpStatusError } = require ('../../errors/httpStatusError')
 
-module.exports.getAllsubsidiary = async () => {
+module.exports.getAllSubsidiary = async () => {
     const subsidiary = await Subsidiary.findAll()
     return subsidiary
 }
 
-module.exports.getsubsidiary = async ({subsidiaryId}) => {
+module.exports.getSubsidiary = async ({subsidiaryId}) => {
     const subsidiary = await Subsidiary.findByPk(subsidiaryId)
     if(!subsidiary) throw HttpStatusError.notFound ("subsidiary not found")
     return subsidiary
 }
 
-module.exports.createsubsidiary = async ({name}) => {
+module.exports.createSubsidiary = async ({name}) => {
     const subsidiary = await Subsidiary.create({name, id: uuid.v4()})
     return subsidiary
 }
 
-module.exports.deletesubsidiary = async ({subsidiaryId}) => {
+module.exports.deleteSubsidiary = async ({subsidiaryId}) => {
     const subsidiary = await Subsidiary.findByPk(subsidiaryId)
     if(!subsidiary) throw HttpStatusError.notFound ("subsidiary not found")
     await subsidiary.destroy()
     return subsidiary
 }
 
-module.exports.editsubsidiary = async ({subsidiaryId, name}) => {
+module.exports.editSubsidiary = async ({subsidiaryId, name}) => {
     const subsidiary = await Subsidiary.findByPk(subsidiaryId)
     if(!subsidiary) throw HttpStatusError.notFound ("subsidiary not found")
     await subsidiary.update({name})

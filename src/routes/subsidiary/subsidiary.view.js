@@ -10,8 +10,8 @@ const responseData = (subsidiary) => ({
 module.exports.subsidiaryResponse = responseData
 
 module.exports.get_subsidiary = controllerWrapper(async (req, res) => {
-    const subsidiarys = await controller.getAllsubsidiary()
-    const data = subsidiarys.map(subsidiary => {
+    const subsidiary = await controller.getAllSubsidiary()
+    const data = subsidiary.map(subsidiary => {
         return responseData(subsidiary).data
     })
     res.json({data})
@@ -19,25 +19,25 @@ module.exports.get_subsidiary = controllerWrapper(async (req, res) => {
 
 module.exports.get_subsidiary_subsidiary_id = controllerWrapper(async (req, res) => {
     const {subsidiaryId} = req.params
-    const subsidiary = await controller.getsubsidiary({subsidiaryId})
+    const subsidiary = await controller.getSubsidiary({subsidiaryId})
     res.json(responseData(subsidiary))
 })
 
 module.exports.post_subsidiary = controllerWrapper(async (req, res) => {
     const {name} = req.body
-    const subsidiary = await controller.createsubsidiary({name})
+    const subsidiary = await controller.createSubsidiary({name})
     res.json(responseData(subsidiary))
 })
 
 module.exports.delete_subsidiary = controllerWrapper(async (req, res) => {
     const {subsidiaryId} = req.params
-    const subsidiary = await controller.deletesubsidiary({subsidiaryId})
+    const subsidiary = await controller.deleteSubsidiary({subsidiaryId})
     res.json(responseData(subsidiary))
 })
 
 module.exports.put_subsidiary = controllerWrapper(async (req, res) => {
     const {subsidiaryId} = req.params
     const {name} = req.body
-    const subsidiary = await controller.editsubsidiary({subsidiaryId, name})
+    const subsidiary = await controller.editSubsidiary({subsidiaryId, name})
     res.json(responseData(subsidiary))
 })
