@@ -2,17 +2,12 @@ module.exports = {
     type: "object",
     properties: {
       body: {
-        type: "object",
-        properties: {
-          name: {type: "string"},
-          description: {type: "string"},
-          photo: {type: "string"}
-        }
+        type: "object"
       },
       params: {
         type: "object",
         properties: {
-          itemId: {type: "string"}
+          userId: {type: "string"}
         }
       },
       query: {
