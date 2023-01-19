@@ -4,7 +4,6 @@ const controller = require('./user.controller')
 const responseData = (user) => ({
     data: {
         id: user.id,
-        password: user.password,
         username: user.username,
         role: user.role
     }
@@ -28,7 +27,7 @@ module.exports.get_user_user_id = controllerWrapper(async (req, res) => {
 module.exports.post_user = controllerWrapper(async (req, res) => {
     const {username, password, role} = req.body
 
-    const user = await controller.createUser({username, password,role})
+    const user = await controller.createUser({username, password, role})
     res.json(responseData(user))
 })
 
@@ -40,7 +39,7 @@ module.exports.delete_user = controllerWrapper(async (req, res) => {
 
 module.exports.put_user = controllerWrapper(async (req, res) => {
     const {userId} = req.params
-    const {name} = req.body
-    const user = await controller.editUser({userId, name})
+    const {username, password} = req.body
+    const user = await controller.editUser({userId, username, password})
     res.json(responseData(user))
 })

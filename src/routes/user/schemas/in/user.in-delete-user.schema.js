@@ -5,7 +5,10 @@ module.exports = {
         type: "object"
       },
       params: {
-        type: "object"
+        type: "object",
+        properties: {
+          userId: {type: "string"}
+        }
       },
       query: {
         type: "object"

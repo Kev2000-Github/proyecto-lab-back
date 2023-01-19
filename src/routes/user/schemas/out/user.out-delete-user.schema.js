@@ -12,7 +12,7 @@ module.exports = {
           }        
         }
       },
-      additionalProperties: true
+      additionalProperties: false
     },
     require('../../../../errors/error-response.schema')
   ]

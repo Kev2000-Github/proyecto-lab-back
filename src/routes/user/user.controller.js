@@ -23,15 +23,18 @@ module.exports.createUser = async ({username, password, role}) => {
 }
 
 module.exports.deleteUser = async ({userId}) => {
-    const user = await user.findByPk(userId)
+    const user = await User.findByPk(userId)
     if(!user) throw HttpStatusError.notFound("User not found")
     await user.destroy()
     return user
 }
 
-module.exports.editUser = async ({userId, username, password, role}) => {
+module.exports.editUser = async ({userId, username, password}) => {
     const user = await User.findByPk(userId)
     if(!user) throw HttpStatusError.notFound("User not found")
-    await user.update({ username, password, role })
+
+    const newPassword = await hashPassword(10, password)
+
+    await user.update({username, password: newPassword })
     return user
 }
