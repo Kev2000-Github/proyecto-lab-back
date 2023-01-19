@@ -4,10 +4,12 @@ module.exports = {
       body: {
         type: "object",
         properties: {
+          code: {type: "string"},
           name: {type: "string"},
           description: {type: "string"},
           photo: {type: "string"}
-        }
+        },
+        additionalProperties: false
       },
       params: {
         type: "object",

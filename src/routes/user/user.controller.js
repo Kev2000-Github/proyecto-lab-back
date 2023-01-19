@@ -14,11 +14,9 @@ module.exports.getUser = async ({userId}) => {
     return user
 }
 
-module.exports.createUser = async ({username, password, role}) => {
-
+module.exports.createUser = async ({username, password}) => {
     const newPassword = await hashPassword(10, password)
-
-    const user = await User.create({username, password: newPassword, role, id: uuid.v4()})
+    const user = await User.create({username, password: newPassword, id: uuid.v4()})
     return user
 }
 
@@ -33,8 +31,8 @@ module.exports.editUser = async ({userId, username, password}) => {
     const user = await User.findByPk(userId)
     if(!user) throw HttpStatusError.notFound("User not found")
 
-    const newPassword = await hashPassword(10, password)
-
-    await user.update({username, password: newPassword })
+    const updateData = {username}
+    if(password) updateData.password = await hashPassword(10, password)
+    await user.update(updateData)
     return user
 }

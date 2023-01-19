@@ -5,7 +5,8 @@ module.exports = {
         type: "object",
         properties: {
           name: {type: "string"}
-        }
+        },
+        additionalProperties: false
       },
       params: {
         type: "object"

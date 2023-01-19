@@ -5,9 +5,7 @@ module.exports = {
       properties: {
         data: {
           type: "array",
-          items: {
-            type: "object"
-          }
+          items: require('./user.schema')
         }
       },
       additionalProperties: false

@@ -5,6 +5,7 @@ const {groupResponse} = require('../group/group.view')
 const responseData = (item) => ({
     data: {
         id: item.id,
+        code: item.code,
         name: item.name,
         description: item.description,
         photo: item.photo

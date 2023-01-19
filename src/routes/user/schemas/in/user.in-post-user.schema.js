@@ -5,11 +5,10 @@ module.exports = {
         type: "object",
         properties: {
           username: {type: "string"},
-          password: {type: "string"},
-          role: {type: "string"}
+          password: {type: "string"}
         },
-        required: ["username"],
-        required: ["password"]
+        additionalProperties: false,
+        required: ["username","password"],
       },
       params: {
         type: "object"

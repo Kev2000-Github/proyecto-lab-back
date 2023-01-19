@@ -19,6 +19,13 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.UUIDV4
     },
+    code: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: {
+        msg: "this code is already in use, please use another"
+      }
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false

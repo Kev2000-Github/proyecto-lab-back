@@ -26,6 +26,17 @@ const errorHandler = (err, req, res, next) => {
             }
         })
     }
+    else if(err.name === 'SequelizeUniqueConstraintError'){
+        res.status(ERROR_CODES.CONFLICT)
+        const errorMessage = err.errors[0].message
+        res.json({
+            apiVersion: version,
+            error: {
+                code: ERROR_CODES.CONFLICT,
+                message: errorMessage
+            }
+        })
+    }
     else{
         res.status(err.code)
         res.json({

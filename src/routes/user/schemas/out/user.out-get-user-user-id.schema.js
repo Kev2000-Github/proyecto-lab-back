@@ -3,14 +3,7 @@ module.exports = {
   anyOf: [
     {
       properties: {
-        data: {
-          type: "object",
-          properties: {
-            id: {type: "string"},
-            username: {type: "string"},
-            role: {type: "string"}
-          }        
-        }
+        data: require('./user.schema')
       },
       additionalProperties: false
     },

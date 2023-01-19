@@ -6,6 +6,7 @@ module.exports = {
         properties: {
           name: {type: "string"}
         },
+        additionalProperties: false,
         required: ["name"]
       },
       params: {

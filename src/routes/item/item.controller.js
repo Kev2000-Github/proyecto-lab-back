@@ -21,11 +21,12 @@ module.exports.getAllItems = async ({groups}) => {
     return items
 }
 
-module.exports.createItem = async ({name, description, photo}) => {
+module.exports.createItem = async ({name, description, photo, code}) => {
     const inputData = {
         name,
         description,
         photo,
+        code,
         id: uuid.v4()
     }
     const item = await Item.create(inputData)
@@ -43,7 +44,8 @@ module.exports.editItem = async ({itemId, itemData}) => {
     const inputData = {
         name: itemData.name,
         description: itemData.description,
-        photo: itemData.photo
+        photo: itemData.photo,
+        code: itemData.code
     }
     const item = await Item.findByPk(itemId)
     if(!item) throw HttpStatusError.notFound("Item not found")

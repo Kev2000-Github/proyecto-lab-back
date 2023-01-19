@@ -25,9 +25,9 @@ module.exports.get_user_user_id = controllerWrapper(async (req, res) => {
 })
 
 module.exports.post_user = controllerWrapper(async (req, res) => {
-    const {username, password, role} = req.body
+    const {username, password} = req.body
 
-    const user = await controller.createUser({username, password, role})
+    const user = await controller.createUser({username, password})
     res.json(responseData(user))
 })
 
