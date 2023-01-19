@@ -5,16 +5,17 @@ module.exports = {
         type: "object"
       },
       params: {
-        type: "object"
-      },
-      query: {
         type: "object",
         properties: {
-          groups: {type: "string"}
+          userId: {type: "string"}
         }
+      },
+      query: {
+        type: "object"
       },
       headers: {
         type: "object"
       }
     }
 }
+  

@@ -1,3 +1,5 @@
+const bcrypt = require("bcrypt")
+
 const isJSON = (objStringified) => {
     try{
         const obj = JSON.parse(objStringified)
