@@ -5,6 +5,7 @@ const {
 const { enumFields } = require('../helper')
 const { ROLES } = require('../constants');
 const { HttpStatusError } = require('../../errors/httpStatusError');
+const { hashPassword } = require('../../utils/common')
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -49,6 +50,14 @@ module.exports = (sequelize, DataTypes) => {
           if(!agent) throw HttpStatusError.notFound("Fatal: Agent not found")
           await agent.destroy({transaction})
         }
+      },
+      beforeCreate: async function (user) {
+        const newPass = await hashPassword(10, user.password)
+        user.password = newPass
+      },
+      beforeUpdate: async function (user) {
+        const newPass = await hashPassword(10, user.password)
+        user.password = newPass
       }
     }
   });
