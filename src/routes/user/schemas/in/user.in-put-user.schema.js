@@ -5,7 +5,8 @@ module.exports = {
         type: "object",
         properties: {
           username: {type: "string"},
-          password: {type: "string"}
+          password: {type: "string"},
+          subsidiaryId: {type: "string"}
         },
         additionalProperties: false
       },

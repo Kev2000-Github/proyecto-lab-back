@@ -1,13 +1,19 @@
 const { controllerWrapper } = require('../../utils/common')
 const controller = require('./user.controller')
 
-const responseData = (user) => ({
-    data: {
-        id: user.id,
-        username: user.username,
-        role: user.role
+const responseData = (user) => {
+    const agent = user.Agent
+    return {
+        data: {
+            id: user.id,
+            username: user.username,
+            role: user.role,
+            Subsidiary: agent ? {
+                name: agent.Subsidiary.name
+            } : null
+        }
     }
-})
+}
 module.exports.userResponse = responseData
 
 module.exports.get_user = controllerWrapper(async (req, res) => {
@@ -25,9 +31,8 @@ module.exports.get_user_user_id = controllerWrapper(async (req, res) => {
 })
 
 module.exports.post_user = controllerWrapper(async (req, res) => {
-    const {username, password} = req.body
-
-    const user = await controller.createUser({username, password})
+    const {username, password, subsidiaryId} = req.body
+    const user = await controller.createUser({username, password, subsidiaryId})
     res.json(responseData(user))
 })
 
@@ -39,7 +44,7 @@ module.exports.delete_user = controllerWrapper(async (req, res) => {
 
 module.exports.put_user = controllerWrapper(async (req, res) => {
     const {userId} = req.params
-    const {username, password} = req.body
-    const user = await controller.editUser({userId, username, password})
+    const {username, password, subsidiaryId} = req.body
+    const user = await controller.editUser({userId, username, password, subsidiaryId})
     res.json(responseData(user))
 })

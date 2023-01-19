@@ -3,13 +3,17 @@ const {
   Model
 } = require('sequelize');
 const { enumFields } = require('../helper')
-const { ROLES } = require('../constants')
+const { ROLES } = require('../constants');
+const { HttpStatusError } = require('../../errors/httpStatusError');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
       User.hasMany(models.Session, {
         foreignKey: 'user_id'
+      })
+      User.hasOne(models.Agent, {
+        foreignKey: 'user_id',
       })
     }
   }
@@ -37,7 +41,16 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'user',
     underscored: true,
     timestamps: true,
-    paranoid: true
+    paranoid: true,
+    hooks: {
+      afterDestroy: async function (user, {transaction}) {
+        if(user.role === ROLES.AGENT){
+          const agent = await user.getAgent()
+          if(!agent) throw HttpStatusError.notFound("Fatal: Agent not found")
+          await agent.destroy({transaction})
+        }
+      }
+    }
   });
   return User;
 };

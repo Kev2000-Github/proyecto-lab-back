@@ -9,6 +9,9 @@ module.exports = (sequelize, DataTypes) => {
       Agent.belongsTo(models.User, {
         foreignKey: 'user_id'
       })
+      Agent.belongsTo(models.Subsidiary, {
+        foreignKey: "subsidiary_id"
+      })
     }
   }
   Agent.init({
@@ -30,6 +33,10 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Agent',
+    tableName: 'agent',
+    underscored: true,
+    timestamps: true,
+    paranoid: true
   });
   return Agent;
 };
