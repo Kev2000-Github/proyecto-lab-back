@@ -7,8 +7,7 @@ module.exports = {
             username: {type: "string"},
             password: {type: "string"}
         },
-        required: ["username"],
-        required: ["password"]
+        required: ["username","password"],
       },
       params: {
         type: "object"

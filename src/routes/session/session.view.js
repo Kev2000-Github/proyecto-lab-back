@@ -24,7 +24,6 @@ module.exports.userResponse = responseData
 module.exports.post_session_login = controllerWrapper(async (req, res)=> {
     const {username, password} = req.body
     const login = await controller.login({username, password})
-
     res.json(responseData(login))
 })
 
@@ -32,7 +31,5 @@ module.exports.post_session_login = controllerWrapper(async (req, res)=> {
 module.exports.delete_session_loguot = controllerWrapper(async (req, res)=> {
     const {sessionId} = req.params
     const logout = await controller.logout({sessionId})
-    
-
     res.json(responseData(logout))
 })

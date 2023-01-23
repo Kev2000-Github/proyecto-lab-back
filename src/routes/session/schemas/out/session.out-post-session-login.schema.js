@@ -3,20 +3,8 @@ module.exports = {
     anyOf: [
       {
         properties: {
-          user: {
-            type: "object",
-            properties: {
-              id: {type: "string"},
-              username: {type: "string"},
-              role: {type: "string"},
-            }        
-          },
-          session:{
-            type: "object",
-            properties: {
-              id: {type: "string"}
-            }
-          }
+          user: require('../../../user/schemas/out/user.schema'),
+          session: require('./session.schema')
         },
         additionalProperties: false
       },
