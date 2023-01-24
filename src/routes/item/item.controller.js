@@ -36,6 +36,14 @@ module.exports.createItem = async ({name, description, photo, code}) => {
 module.exports.deleteItem = async ({itemId}) => {
     const item = await Item.findByPk(itemId)
     if(!item) throw HttpStatusError.notFound("Item not found")
+    
+    const isItemActive = await ItemSubsidiary.count({
+        where: {
+            itemId,
+            quantity: {[Op.gt]: 0}
+        }
+    })
+    if(isItemActive) throw HttpStatusError.conflict("This Item is still active")
     await item.destroy()
     return item
 }
