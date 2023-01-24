@@ -3,22 +3,32 @@ const { Op } = require('sequelize')
 const uuid = require('uuid')
 const { HttpStatusError } = require('../../errors/httpStatusError')
 
-module.exports.getAllItems = async ({groups}) => {
-    let options = {}
+const getSubsidiaryOption = (subsidiaryId) => ({
+    model: Subsidiary,
+    where: {id: subsidiaryId},
+    through: { attributes: ['quantity']}
+})
+
+module.exports.getAllItems = async ({groups, subsidiaryId}) => {
+    let options = { include: [] }
     if(groups.length){
-        options = {
-            include: {
-                model: Group,
-                where: {
-                    id: {
-                        [Op.in]: groups
-                    }
-                }
-            }
-        }
+        options.include.push({
+            model: Group,
+            where: { id: { [Op.in]: groups } }
+        })
+    }
+    if(subsidiaryId){
+        options.include.push(getSubsidiaryOption(subsidiaryId))
     }
     const items = await Item.findAll(options)
     return items
+}
+
+module.exports.getItem = async ({itemId, subsidiaryId}) => {
+    const options = subsidiaryId ? {include: getSubsidiaryOption(subsidiaryId)} : {}
+    const item = await Item.findByPk(itemId, options)
+    if(!item) throw HttpStatusError.notFound("Item not found")
+    return item
 }
 
 module.exports.createItem = async ({name, description, photo, code}) => {
@@ -93,12 +103,6 @@ module.exports.removeItemToGroup = async ({itemId, groupId}) => {
     if(!itemGroup) throw HttpStatusError.conflict("This item is not in this group")
     await item.removeGroup(groupId)
     return {item, group}
-}
-
-module.exports.getItem = async ({itemId}) => {
-    const item = await Item.findByPk(itemId)
-    if(!item) throw HttpStatusError.notFound("Item not found")
-    return item
 }
 
 module.exports.addItemSubsidiary = async ({itemId, subsidiaryId, quantity}) => {
