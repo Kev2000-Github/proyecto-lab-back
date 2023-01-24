@@ -7,7 +7,7 @@ const includeOpts = {include: Subsidiary}
 
 module.exports.login = async ({username, password}) =>{
     // ... Validacion del usuario
-    const user = await User.findOne({where:{username: username}, ...includeOpts})
+    const user = await User.findOne({where:{username}, ...includeOpts})
     if(!user) throw HttpStatusError.notFound("Wrong Credentials")
     // ... Validacion de la contraseña
     const passwordValidated = await verifyPassword(password, user.password)

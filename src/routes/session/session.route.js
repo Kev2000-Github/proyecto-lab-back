@@ -3,11 +3,13 @@ const router = Router()
 const { resolve } = require('path')
 const view = require('./session.view')
 const {validateRequestSchema, validateResponseSchema} = require('../../middlewares')
+const { firstLogin } = require('../../middlewares/firstLogin.middleware')
 
 router.post(
     '/login', 
     validateRequestSchema(require(resolve(__dirname, 'schemas', 'in', 'session.in-post-session-login.schema.js'))),
     validateResponseSchema(require(resolve(__dirname, 'schemas', 'out', 'session.out-post-session-login.schema.js'))),
+    firstLogin,
     view.post_session_login
     )
 
