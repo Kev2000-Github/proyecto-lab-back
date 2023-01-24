@@ -1,4 +1,4 @@
-const { Item, Group, sequelize } = require('../../database/models')
+const { Item, Group, Subsidiary, ItemSubsidiary } = require('../../database/models')
 const { Op } = require('sequelize')
 const uuid = require('uuid')
 const { HttpStatusError } = require('../../errors/httpStatusError')
@@ -90,5 +90,20 @@ module.exports.removeItemToGroup = async ({itemId, groupId}) => {
 module.exports.getItem = async ({itemId}) => {
     const item = await Item.findByPk(itemId)
     if(!item) throw HttpStatusError.notFound("Item not found")
+    return item
+}
+
+module.exports.addItemSubsidiary = async ({itemId, subsidiaryId, quantity}) => {
+    const item = await Item.findByPk(itemId)
+    if(!item) throw HttpStatusError.notFound("Item not found")
+    const subsidiary = await Subsidiary.findByPk(subsidiaryId)
+    if(!subsidiary) throw HttpStatusError.notFound("Subsidiary not found")
+    let itemSubsidiary = await ItemSubsidiary.findOne({
+        where: {itemId, subsidiaryId},
+    })
+    if(!itemSubsidiary) itemSubsidiary = ItemSubsidiary.create({itemId, subsidiaryId, quantity})
+    else{
+        itemSubsidiary.update({quantity})
+    }
     return item
 }

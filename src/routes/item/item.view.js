@@ -69,3 +69,11 @@ module.exports.get_item_item_id = controllerWrapper(async (req, res) => {
     const item = await controller.getItem({itemId})
     res.json(responseData(item))
 })
+
+module.exports.post_item_subsidiary = controllerWrapper(async (req, res) => {
+    const {itemId, subsidiaryId} = req.params
+    const { quantity } = req.body
+    //TODO: validate that user subsidiary matches subsidiaryId
+    const item = await controller.addItemSubsidiary({itemId, subsidiaryId, quantity})
+    res.json(responseData(item))
+})

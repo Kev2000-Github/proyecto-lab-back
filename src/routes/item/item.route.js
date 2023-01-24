@@ -53,6 +53,13 @@ router.delete(
     view.delete_item_group
     )
 
+router.post(
+    '/subsidiary/:itemId/:subsidiaryId', 
+    validateRequestSchema(require(resolve(__dirname, 'schemas', 'in', 'item.in-post-item-subsidiary.schema.js'))),
+    validateResponseSchema(require(resolve(__dirname, 'schemas', 'out', 'item.out-post-item-subsidiary.schema.js'))),
+    view.post_item_subsidiary
+    )
+
 module.exports = {
     itemRouter: router
 }
