@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       Subsidiary.belongsToMany(models.Item, {
         through: models.ItemSubsidiary
       })
-      Subsidiary.hasMany(models.Agent, {
+      Subsidiary.hasMany(models.User, {
         foreignKey: 'subsidiary_id'
       })
     }

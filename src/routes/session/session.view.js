@@ -2,15 +2,14 @@ const { controllerWrapper } = require('../../utils/common')
 const controller = require('./session.controller')
 
 const responseData = ({session, user}) => {
-    const agent = user.Agent
     return {
         user: {
             id: user.id,
             username: user.username,
             role: user.role,
-            Subsidiary: agent ? {
-                name: agent.Subsidiary.name
-            } : null
+            Subsidiary: {
+                name: user.Subsidiary?.name
+            }
         },
         session: {
             id: session.id,

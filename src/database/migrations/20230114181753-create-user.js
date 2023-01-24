@@ -25,6 +25,14 @@ module.exports = {
         type: Sequelize.ENUM(...enumArray(ROLES)),
         allowNull: false,
       },
+      subsidiary_id: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        references: {
+          model: 'subsidiary',
+          key: 'id'
+        }
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false

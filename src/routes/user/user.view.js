@@ -2,15 +2,14 @@ const { controllerWrapper } = require('../../utils/common')
 const controller = require('./user.controller')
 
 const responseData = (user) => {
-    const agent = user.Agent
     return {
         data: {
             id: user.id,
             username: user.username,
             role: user.role,
-            Subsidiary: agent ? {
-                name: agent.Subsidiary.name
-            } : null
+            Subsidiary: {
+                name: user.Subsidiary?.name
+            }
         }
     }
 }

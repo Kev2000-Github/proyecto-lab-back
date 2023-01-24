@@ -43,7 +43,8 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'ItemSubsidiary',
     tableName: 'item_subsidiary',
     underscored: true,
-    timestamps: false,
+    timestamps: true,
+    paranoid: true
   });
   return ItemSubsidiary;
 };

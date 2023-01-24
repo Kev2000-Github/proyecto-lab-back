@@ -4,7 +4,6 @@ const {
 } = require('sequelize');
 const { enumFields } = require('../helper')
 const { ROLES } = require('../constants');
-const { HttpStatusError } = require('../../errors/httpStatusError');
 const { hashPassword } = require('../../utils/common')
 
 module.exports = (sequelize, DataTypes) => {
@@ -13,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Session, {
         foreignKey: 'user_id'
       })
-      User.hasOne(models.Agent, {
-        foreignKey: 'user_id',
+      User.belongsTo(models.Subsidiary, {
+        foreignKey: 'subsidiary_id'
       })
     }
   }
@@ -35,7 +34,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    role: enumFields(DataTypes, ROLES, ROLES.AGENT)
+    role: enumFields(DataTypes, ROLES, ROLES.AGENT),
+    subsidiaryId: {
+      type: DataTypes.STRING,
+      field: 'subsidiary_id',
+      references: {
+        model: 'subsidiary',
+        key: 'id'
+      }
+    },
   }, {
     sequelize,
     modelName: 'User',
@@ -44,13 +51,6 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: true,
     paranoid: true,
     hooks: {
-      afterDestroy: async function (user, {transaction}) {
-        if(user.role === ROLES.AGENT){
-          const agent = await user.getAgent()
-          if(!agent) throw HttpStatusError.notFound("Fatal: Agent not found")
-          await agent.destroy({transaction})
-        }
-      },
       beforeCreate: async function (user) {
         const newPass = await hashPassword(10, user.password)
         user.password = newPass

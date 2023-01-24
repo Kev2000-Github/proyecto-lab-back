@@ -1,9 +1,9 @@
-const { User, Session, Agent, Subsidiary } = require('../../database/models')
+const { User, Session, Subsidiary } = require('../../database/models')
 const uuid = require('uuid')
 const { HttpStatusError } = require('../../errors/httpStatusError')
 const { verifyPassword } = require('../../utils/common')
 
-const includeOpts = {include: { model: Agent, include: Subsidiary }}
+const includeOpts = {include: Subsidiary}
 
 module.exports.login = async ({username, password}) =>{
     // ... Validacion del usuario
