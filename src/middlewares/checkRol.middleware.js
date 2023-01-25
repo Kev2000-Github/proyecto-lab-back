@@ -4,15 +4,15 @@ const { ROLES } = require('../database/constants');
 
 const defaultRoles = [ROLES.ADMIN, ROLES.AGENT]
 
-const checkrol = (roles=defaultRoles) => controllerWrapper(async (req, res, next) => {
+const checkRol = (roles=defaultRoles) => controllerWrapper(async (req, res, next) => {
     const userReceived = req.user
     if(!userReceived) throw HttpStatusError.forbidden("Not received!")
 
-    if(roles.includes(userReceived.role)) next()
-
-    throw HttpStatusError.forbidden("You don't have the required permissions")
+    if(!roles.includes(userReceived.role)) 
+        throw HttpStatusError.forbidden("You don't have the required permissions")
+    next()
 })
 
 module.exports = {
-    checkrol
+    checkRol
   }

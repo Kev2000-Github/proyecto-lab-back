@@ -1,3 +1,4 @@
+const { HttpStatusError } = require("../errors/httpStatusError")
 const bcrypt = require("bcrypt")
 
 const isJSON = (objStringified) => {
