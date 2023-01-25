@@ -48,11 +48,21 @@ const errorFormatter = errors => {
     }, '').trim().replace(/\n/g, '').replace(/\'/g, '')
 }
 
+const getAuthSession = (bearerToken) => {
+    const bearer = bearerToken
+    if(!bearer) throw HttpStatusError.forbidden("You don't have required permissions")
+    const arr = bearer.split(' ');
+    if(arr.length < 2) throw HttpStatusError.forbidden("Session Token invalid")
+    const sessionId = arr[1]
+    return sessionId
+}
+
 module.exports = {
     isJSON,
     controllerWrapper,
     mapObject,
     hashPassword,
     verifyPassword,
-    errorFormatter
+    errorFormatter,
+    getAuthSession
 }

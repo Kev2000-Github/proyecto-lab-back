@@ -1,4 +1,4 @@
-const { controllerWrapper } = require('../../utils/common')
+const { controllerWrapper, getAuthSession } = require('../../utils/common')
 const controller = require('./session.controller')
 
 const responseData = ({session, user}) => {
@@ -27,8 +27,8 @@ module.exports.post_session_login = controllerWrapper(async (req, res)=> {
 })
 
 
-module.exports.delete_session_loguot = controllerWrapper(async (req, res)=> {
-    const {sessionId} = req.params
+module.exports.delete_session_logout = controllerWrapper(async (req, res)=> {
+    const sessionId = getAuthSession(req.headers.authorization)
     const logout = await controller.logout({sessionId})
     res.json(responseData(logout))
 })

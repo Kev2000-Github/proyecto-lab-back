@@ -16,12 +16,10 @@ router.post(
     )
 
 router.delete(
-    '/:sessionId', 
+    '/logout', 
     validateRequestSchema(require(resolve(__dirname, 'schemas', 'in', 'session.in-delete-session-logout.schema.js'))),
     validateResponseSchema(require(resolve(__dirname, 'schemas', 'out', 'session.out-delete-session-logout.schema.js'))),
-    verifyUser(),
-    checkrol,
-    view.delete_session_loguot
+    view.delete_session_logout
     )
 
 module.exports = {
