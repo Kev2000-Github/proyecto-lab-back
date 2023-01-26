@@ -79,8 +79,9 @@ module.exports.delete_item_group = controllerWrapper(async (req, res) => {
 })
 
 module.exports.post_item_subsidiary = controllerWrapper(async (req, res) => {
-    const {itemId, subsidiaryId} = req.params
+    const {itemId} = req.params
     const { quantity } = req.body
+    const subsidiaryId = req.user?.Subsidiary?.id
     //TODO: validate that user subsidiary matches subsidiaryId
     const item = await controller.addItemSubsidiary({itemId, subsidiaryId, quantity})
     res.json(responseData(item))

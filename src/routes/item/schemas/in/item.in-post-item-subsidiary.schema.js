@@ -12,9 +12,8 @@ module.exports = {
         type: "object",
         properties: {
           itemId: {type: "string"},
-          subsidiaryId: {type: "string"}
         },
-        required: ['itemId','subsidiaryId']
+        required: ['itemId']
       },
       query: {
         type: "object"

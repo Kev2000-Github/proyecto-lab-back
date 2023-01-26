@@ -25,6 +25,15 @@ router.post(
     view.post_item
     )
 
+router.post(
+    '/subsidiary/:itemId', 
+    validateRequestSchema(require(resolve(__dirname, 'schemas', 'in', 'item.in-post-item-subsidiary.schema.js'))),
+    validateResponseSchema(require(resolve(__dirname, 'schemas', 'out', 'item.out-post-item-subsidiary.schema.js'))),
+    verifyUser(),
+    checkRol(),
+    view.post_item_subsidiary
+    )
+
 router.get(
     '/:itemId', 
     validateRequestSchema(require(resolve(__dirname, 'schemas', 'in', 'item.in-get-item-item-id.schema.js'))),
@@ -68,15 +77,6 @@ router.delete(
     verifyUser(),
     checkRol([ROLES.ADMIN]),
     view.delete_item_group
-    )
-
-router.post(
-    '/subsidiary/:itemId/:subsidiaryId', 
-    validateRequestSchema(require(resolve(__dirname, 'schemas', 'in', 'item.in-post-item-subsidiary.schema.js'))),
-    validateResponseSchema(require(resolve(__dirname, 'schemas', 'out', 'item.out-post-item-subsidiary.schema.js'))),
-    verifyUser(),
-    checkRol(),
-    view.post_item_subsidiary
     )
 
 module.exports = {
