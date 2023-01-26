@@ -8,7 +8,10 @@ module.exports = {
           items: {
             type: "object"
           }
-        }
+        },
+        size: {type: "number"},
+        page: {type: "number"},
+        totalPages: {type: "number"}
       },
       additionalProperties: true
     },

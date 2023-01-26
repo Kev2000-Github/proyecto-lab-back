@@ -6,7 +6,10 @@ module.exports = {
         data: {
           type: "array",
           items: require('./item.schema')
-        }
+        },
+        size: {type: "number"},
+        page: {type: "number"},
+        totalPages: {type: "number"}
       },
       additionalProperties: false
     },

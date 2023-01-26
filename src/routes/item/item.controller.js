@@ -9,8 +9,8 @@ const getSubsidiaryOption = (subsidiaryId) => ({
     through: { attributes: ['quantity']}
 })
 
-module.exports.getAllItems = async ({groups, subsidiaryId}) => {
-    let options = { include: [] }
+module.exports.getAllItems = async ({groups, subsidiaryId}, {limit = 10, offset = 0}) => {
+    let options = { include: [], limit, offset }
     if(groups.length){
         options.include.push({
             model: Group,
@@ -20,7 +20,9 @@ module.exports.getAllItems = async ({groups, subsidiaryId}) => {
     if(subsidiaryId){
         options.include.push(getSubsidiaryOption(subsidiaryId))
     }
-    const items = await Item.findAll(options)
+    const items = await Item.findAndCountAll(options)
+    const totalPages = Math.ceil(items.count/limit)
+    items.totalPages = totalPages
     return items
 }
 

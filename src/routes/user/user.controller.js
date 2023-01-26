@@ -4,8 +4,11 @@ const { HttpStatusError } = require('../../errors/httpStatusError')
 
 const includeOpts = {include: Subsidiary}
 
-module.exports.getAllUsers = async () => {
-    const users = await User.findAll(includeOpts)
+module.exports.getAllUsers = async ({limit=10,offset=0}) => {
+    const opts = {...includeOpts, limit, offset}
+    const users = await User.findAndCountAll(opts)
+    const totalPages = Math.ceil(users.count/limit)
+    users.totalPages = totalPages
     return users
 }
 

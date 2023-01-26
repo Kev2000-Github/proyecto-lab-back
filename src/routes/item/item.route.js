@@ -6,6 +6,7 @@ const {validateRequestSchema, validateResponseSchema} = require('../../middlewar
 const { verifyUser } = require('../../middlewares/verifyUser.middleware')
 const { checkRol } = require('../../middlewares/checkRol.middleware')
 const { ROLES } = require('../../database/constants')
+const { paginationConfig } = require('../../middlewares/paginationConfig')
 
 router.get(
     '/', 
@@ -13,6 +14,7 @@ router.get(
     validateResponseSchema(require(resolve(__dirname, 'schemas', 'out', 'item.out-get-item.schema.js'))),
     verifyUser(),
     checkRol(),
+    paginationConfig,
     view.get_item
     )
 

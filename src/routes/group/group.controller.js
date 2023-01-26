@@ -2,8 +2,10 @@ const { Group, sequelize } = require('../../database/models')
 const uuid = require('uuid')
 const { HttpStatusError } = require('../../errors/httpStatusError')
 
-module.exports.getAllGroups = async () => {
-    const groups = await Group.findAll()
+module.exports.getAllGroups = async ({limit=10, offset=0}) => {
+    const groups = await Group.findAndCountAll({limit, offset})
+    const totalPages = Math.ceil(groups.count/limit)
+    groups.totalPages = totalPages
     return groups
 }
 

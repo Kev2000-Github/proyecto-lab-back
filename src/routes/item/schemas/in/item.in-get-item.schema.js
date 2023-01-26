@@ -10,7 +10,9 @@ module.exports = {
       query: {
         type: "object",
         properties: {
-          groups: {type: "string"}
+          groups: {type: "string"},
+          limit: {type: "string"},
+          page: {type: "string"}
         }
       },
       headers: {

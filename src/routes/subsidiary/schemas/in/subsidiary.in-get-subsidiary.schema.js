@@ -9,6 +9,10 @@ module.exports = {
       },
       query: {
         type: "object",
+        properties: {
+          limit: {type: "string"},
+          page: {type: "string"}
+        }
       },
       headers: {
         type: "object"

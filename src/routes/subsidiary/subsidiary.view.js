@@ -10,11 +10,17 @@ const responseData = (subsidiary) => ({
 module.exports.subsidiaryResponse = responseData
 
 module.exports.get_subsidiary = controllerWrapper(async (req, res) => {
-    const subsidiary = await controller.getAllSubsidiary()
-    const data = subsidiary.map(subsidiary => {
+    const pagination = req.pagination
+    const subsidiary = await controller.getAllSubsidiary(pagination)
+    const data = subsidiary.rows.map(subsidiary => {
         return responseData(subsidiary).data
     })
-    res.json({data})
+    res.json({
+        data,
+        size: subsidiary.rows.length,
+        page: pagination?.page,
+        totalPages: subsidiary.totalPages
+    })
 })
 
 module.exports.get_subsidiary_subsidiary_id = controllerWrapper(async (req, res) => {

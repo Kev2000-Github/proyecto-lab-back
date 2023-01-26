@@ -16,11 +16,17 @@ const responseData = (user) => {
 module.exports.userResponse = responseData
 
 module.exports.get_user = controllerWrapper(async (req, res) => {
-    const users = await controller.getAllUsers()
-    const data = users.map(user => {
+    const pagination = req.pagination
+    const users = await controller.getAllUsers(pagination)
+    const data = users.rows.map(user => {
         return responseData(user).data
     })
-    res.json({data})
+    res.json({
+        data,
+        size: users.rows.length,
+        page: pagination?.page,
+        totalPages: users.totalPages
+    })
 })
 
 module.exports.get_user_user_id = controllerWrapper(async (req, res) => {

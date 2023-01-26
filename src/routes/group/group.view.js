@@ -10,11 +10,17 @@ const responseData = (group) => ({
 module.exports.groupResponse = responseData
 
 module.exports.get_group = controllerWrapper(async (req, res) => {
-    const groups = await controller.getAllGroups()
-    const data = groups.map(group => {
+    const pagination = req.pagination
+    const groups = await controller.getAllGroups(pagination)
+    const data = groups.rows.map(group => {
         return responseData(group).data
     })
-    res.json({data})
+    res.json({
+        data,
+        size: groups.rows.length,
+        page: pagination?.page,
+        totalPages: groups.totalPages
+    })
 })
 
 module.exports.get_group_group_id = controllerWrapper(async (req, res) => {

@@ -25,11 +25,17 @@ module.exports.get_item = controllerWrapper(async (req, res) => {
         groups: groups ? groups.split(",") : [],
         subsidiaryId
     }
-    const items = await controller.getAllItems(filters)
-    const data = items.map(item => {
+    const pagination = req.pagination
+    const items = await controller.getAllItems(filters, pagination)
+    const data = items.rows.map(item => {
         return responseData(item).data
     })
-    res.json({data})
+    res.json({
+        data,
+        size: items.rows.length,
+        page: pagination?.page,
+        totalPages: items.totalPages
+    })
 })
 
 module.exports.get_item_item_id = controllerWrapper(async (req, res) => {
@@ -82,7 +88,6 @@ module.exports.post_item_subsidiary = controllerWrapper(async (req, res) => {
     const {itemId} = req.params
     const { quantity } = req.body
     const subsidiaryId = req.user?.Subsidiary?.id
-    //TODO: validate that user subsidiary matches subsidiaryId
     const item = await controller.addItemSubsidiary({itemId, subsidiaryId, quantity})
     res.json(responseData(item))
 })

@@ -2,8 +2,10 @@ const {Subsidiary , sequelize}= require('../../database/models')
 const uuid = require ('uuid')
 const { HttpStatusError } = require ('../../errors/httpStatusError')
 
-module.exports.getAllSubsidiary = async () => {
-    const subsidiary = await Subsidiary.findAll()
+module.exports.getAllSubsidiary = async ({limit=10,offset=0}) => {
+    const subsidiary = await Subsidiary.findAndCountAll({limit, offset})
+    const totalPages = Math.ceil(subsidiary.count/limit)
+    subsidiary.totalPages = totalPages
     return subsidiary
 }
 
