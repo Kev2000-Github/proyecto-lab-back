@@ -30,7 +30,7 @@ router.delete(
     validateRequestSchema (require(resolve(__dirname,'schemas', 'in', 'subsidiary.in-delete-subsidiary.schema.js'))),
     validateResponseSchema (require(resolve(__dirname,'schemas', 'out', 'subsidiary.out-delete-subsidiary.schema.js' ))),
     verifyUser(),
-    checkRol(),
+    checkRol([ROLES.ADMIN]),
     view.delete_subsidiary
 )
 
@@ -39,7 +39,7 @@ router.put(
     validateRequestSchema (require(resolve(__dirname,'schemas', 'in', 'subsidiary.in-put-subsidiary.schema.js'))),
     validateResponseSchema (require(resolve(__dirname,'schemas', 'out', 'subsidiary.out-put-subsidiary.schema.js' ))),
     verifyUser(),
-    checkRol(),
+    checkRol([ROLES.ADMIN]),
     view.put_subsidiary
 )
 
@@ -48,7 +48,7 @@ router.post(
     validateRequestSchema (require(resolve(__dirname,'schemas', 'in', 'subsidiary.in-post-subsidiary.schema.js'))),
     validateResponseSchema (require(resolve(__dirname,'schemas', 'out', 'subsidiary.out-post-subsidiary.schema.js' ))),
     verifyUser(),
-    checkRol(),
+    checkRol([ROLES.ADMIN]),
     view.post_subsidiary
 )
 

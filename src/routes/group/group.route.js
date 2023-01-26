@@ -5,6 +5,7 @@ const view = require('./group.view')
 const {validateRequestSchema, validateResponseSchema} = require('../../middlewares')
 const { verifyUser } = require('../../middlewares/verifyUser.middleware')
 const { checkRol } = require('../../middlewares/checkRol.middleware')
+const { ROLES } = require('../../database/constants')
 
 router.get(
     '/', 
@@ -29,7 +30,7 @@ router.post(
     validateRequestSchema(require(resolve(__dirname, 'schemas', 'in', 'group.in-post-group.schema.js'))),
     validateResponseSchema(require(resolve(__dirname, 'schemas', 'out', 'group.out-post-group.schema.js'))),
     verifyUser(),
-    checkRol(),
+    checkRol([ROLES.ADMIN]),
     view.post_group
     )
 
@@ -38,7 +39,7 @@ router.put(
     validateRequestSchema(require(resolve(__dirname, 'schemas', 'in', 'group.in-put-group.schema.js'))),
     validateResponseSchema(require(resolve(__dirname, 'schemas', 'out', 'group.out-put-group.schema.js'))),
     verifyUser(),
-    checkRol(),
+    checkRol([ROLES.ADMIN]),
     view.put_group
     )
 
@@ -47,7 +48,7 @@ router.delete(
     validateRequestSchema(require(resolve(__dirname, 'schemas', 'in', 'group.in-delete-group.schema.js'))),
     validateResponseSchema(require(resolve(__dirname, 'schemas', 'out', 'group.out-delete-group.schema.js'))),
     verifyUser(),
-    checkRol(),
+    checkRol([ROLES.ADMIN]),
     view.delete_group
     )
 

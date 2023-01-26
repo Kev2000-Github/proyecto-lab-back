@@ -5,6 +5,7 @@ const view = require('./item.view')
 const {validateRequestSchema, validateResponseSchema} = require('../../middlewares')
 const { verifyUser } = require('../../middlewares/verifyUser.middleware')
 const { checkRol } = require('../../middlewares/checkRol.middleware')
+const { ROLES } = require('../../database/constants')
 
 router.get(
     '/', 
@@ -20,7 +21,7 @@ router.post(
     validateRequestSchema(require(resolve(__dirname, 'schemas', 'in', 'item.in-post-item.schema.js'))),
     validateResponseSchema(require(resolve(__dirname, 'schemas', 'out', 'item.out-post-item.schema.js'))),
     verifyUser(),
-    checkRol(),
+    checkRol([ROLES.ADMIN]),
     view.post_item
     )
 
@@ -38,7 +39,7 @@ router.put(
     validateRequestSchema(require(resolve(__dirname, 'schemas', 'in', 'item.in-put-item.schema.js'))),
     validateResponseSchema(require(resolve(__dirname, 'schemas', 'out', 'item.out-put-item.schema.js'))),
     verifyUser(),
-    checkRol(),
+    checkRol([ROLES.ADMIN]),
     view.put_item
     )
 
@@ -47,7 +48,7 @@ router.delete(
     validateRequestSchema(require(resolve(__dirname, 'schemas', 'in', 'item.in-delete-item.schema.js'))),
     validateResponseSchema(require(resolve(__dirname, 'schemas', 'out', 'item.out-delete-item.schema.js'))),
     verifyUser(),
-    checkRol(),
+    checkRol([ROLES.ADMIN]),
     view.delete_item
     )
 
@@ -56,7 +57,7 @@ router.post(
     validateRequestSchema(require(resolve(__dirname, 'schemas', 'in', 'item.in-post-item-group.schema.js'))),
     validateResponseSchema(require(resolve(__dirname, 'schemas', 'out', 'item.out-post-item-group.schema.js'))),
     verifyUser(),
-    checkRol(),
+    checkRol([ROLES.ADMIN]),
     view.post_item_group
     )
 
@@ -65,7 +66,7 @@ router.delete(
     validateRequestSchema(require(resolve(__dirname, 'schemas', 'in', 'item.in-delete-item-group.schema.js'))),
     validateResponseSchema(require(resolve(__dirname, 'schemas', 'out', 'item.out-delete-item-group.schema.js'))),
     verifyUser(),
-    checkRol(),
+    checkRol([ROLES.ADMIN]),
     view.delete_item_group
     )
 
