@@ -1,3 +1,4 @@
+require('dotenv').config();
 const config = {
   username: process.env.HOST_USERNAME ?? "root",
   password: process.env.HOST_PASSWORD ?? "root",
@@ -12,3 +13,4 @@ module.exports = {
   "test": config,
   "production": config
 }
+
