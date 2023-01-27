@@ -19,6 +19,15 @@ router.get(
 )
 
 router.get(
+    '/item', 
+    validateRequestSchema(require(resolve(__dirname, 'schemas', 'in', 'subsidiary.in-get-subsidiary-item.schema.js'))),
+    validateResponseSchema(require(resolve(__dirname, 'schemas', 'out', 'subsidiary.out-get-subsidiary-item.schema.js'))),
+    verifyUser(),
+    checkRol([ROLES.ADMIN]),
+    view.get_subsidiary_item
+    )
+
+router.get(
     '/:subsidiaryId',
     validateRequestSchema (require(resolve(__dirname,'schemas', 'in', 'subsidiary.in-get-subsidiary-subsidiary-id.schema.js'))),
     validateResponseSchema (require(resolve(__dirname,'schemas', 'out', 'subsidiary.out-get-subsidiary-subsidiary-id.schema.js' ))),

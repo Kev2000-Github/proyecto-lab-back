@@ -47,3 +47,23 @@ module.exports.put_subsidiary = controllerWrapper(async (req, res) => {
     const subsidiary = await controller.editSubsidiary({subsidiaryId, name})
     res.json(responseData(subsidiary))
 })
+
+module.exports.get_subsidiary_item = controllerWrapper(async (req, res) => {
+    const subsidiaryItems = await controller.getSubsidiaryItems()
+    const data = subsidiaryItems.map(subsidiary => {
+        return {
+            id: subsidiary.id,
+            name: subsidiary.name,
+            Items: subsidiary.Items.map(item => {
+                return {
+                    id: item.id,
+                    name: item.name,
+                    quantity: item?.ItemSubsidiary?.quantity
+                }
+            })
+        }
+    })
+    res.json({
+        data
+    })
+})

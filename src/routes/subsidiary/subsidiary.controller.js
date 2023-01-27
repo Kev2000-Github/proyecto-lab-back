@@ -1,4 +1,4 @@
-const {Subsidiary , sequelize}= require('../../database/models')
+const {Subsidiary , Item}= require('../../database/models')
 const uuid = require ('uuid')
 const { HttpStatusError } = require ('../../errors/httpStatusError')
 
@@ -32,4 +32,17 @@ module.exports.editSubsidiary = async ({subsidiaryId, name}) => {
     if(!subsidiary) throw HttpStatusError.notFound ("subsidiary not found")
     await subsidiary.update({name})
     return subsidiary
+}
+
+module.exports.getSubsidiaryItems = async () => {
+    const items = await Subsidiary.findAll({
+        include: {
+            model: Item,
+            attributes: ['id','name'],
+            through: {
+                attributes: ['quantity']
+            }
+        }
+    })
+    return items
 }
