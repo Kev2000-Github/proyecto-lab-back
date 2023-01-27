@@ -1,6 +1,7 @@
 const { User, Subsidiary, sequelize } = require('../../database/models')
 const uuid = require('uuid')
 const { HttpStatusError } = require('../../errors/httpStatusError')
+const { ROLES } = require('../../database/constants')
 
 const includeOpts = {include: Subsidiary}
 
@@ -30,6 +31,7 @@ module.exports.createUser = async ({username, password, subsidiaryId}) => {
 module.exports.deleteUser = async ({userId}) => {
     const user = await User.findByPk(userId, includeOpts)
     if(!user) throw HttpStatusError.notFound("User not found")
+    if(user.rol === ROLES.ADMIN) throw HttpStatusError.forbidden("Admin cannot be deleted")
     await user.destroy()
     return user
 }
