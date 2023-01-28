@@ -31,7 +31,7 @@ module.exports.createUser = async ({username, password, subsidiaryId}) => {
 module.exports.deleteUser = async ({userId}) => {
     const user = await User.findByPk(userId, includeOpts)
     if(!user) throw HttpStatusError.notFound("User not found")
-    if(user.rol === ROLES.ADMIN) throw HttpStatusError.forbidden("Admin cannot be deleted")
+    if(user.role === ROLES.ADMIN) throw HttpStatusError.forbidden("Admin cannot be deleted")
     await user.destroy()
     return user
 }
