@@ -19,7 +19,8 @@ module.exports.get_subsidiary = controllerWrapper(async (req, res) => {
         data,
         size: subsidiary.rows.length,
         page: pagination?.page,
-        totalPages: subsidiary.totalPages
+        totalPages: subsidiary.totalPages,
+        count: subsidiary.count
     })
 })
 

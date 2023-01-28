@@ -25,7 +25,8 @@ module.exports.get_user = controllerWrapper(async (req, res) => {
         data,
         size: users.rows.length,
         page: pagination?.page,
-        totalPages: users.totalPages
+        totalPages: users.totalPages,
+        count: users.count
     })
 })
 

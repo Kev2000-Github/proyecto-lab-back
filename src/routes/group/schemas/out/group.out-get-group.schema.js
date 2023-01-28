@@ -11,7 +11,8 @@ module.exports = {
         },
         size: {type: "number"},
         page: {type: "number"},
-        totalPages: {type: "number"}
+        totalPages: {type: "number"},
+        count: {type: "number"}
       },
       additionalProperties: true
     },

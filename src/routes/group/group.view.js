@@ -19,7 +19,8 @@ module.exports.get_group = controllerWrapper(async (req, res) => {
         data,
         size: groups.rows.length,
         page: pagination?.page,
-        totalPages: groups.totalPages
+        totalPages: groups.totalPages,
+        count: groups.count
     })
 })
 

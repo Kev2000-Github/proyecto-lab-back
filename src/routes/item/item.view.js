@@ -34,7 +34,8 @@ module.exports.get_item = controllerWrapper(async (req, res) => {
         data,
         size: items.rows.length,
         page: pagination?.page,
-        totalPages: items.totalPages
+        totalPages: items.totalPages,
+        count: items.count
     })
 })
 
