@@ -8,6 +8,7 @@ const responseData = (user) => {
             username: user.username,
             role: user.role,
             Subsidiary: user.Subsidiary ? {
+                id: user.Subsidiary?.id,
                 name: user.Subsidiary?.name
             }: null
         }
