@@ -38,9 +38,18 @@ module.exports.deleteUser = async ({userId}) => {
 
 module.exports.editUser = async ({userId, username, password, subsidiaryId}) => {
     return sequelize.transaction(async transaction => {
-        const user = await User.findByPk(userId, includeOpts)
+        let user = await User.findByPk(userId, includeOpts)
         if(!user) throw HttpStatusError.notFound("User not found")
-        await user.update({username, password, subsidiaryId}, {transaction})
+        subsidiaryId = subsidiaryId === "" ? null : subsidiaryId
+        
+        await user.update({
+            username, 
+            password, 
+            subsidiaryId
+        }, {transaction})
+        let subsidiary = null
+        if(subsidiaryId) subsidiary = await Subsidiary.findByPk(subsidiaryId)
+        user.Subsidiary = subsidiary
         return user
     })
 }

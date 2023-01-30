@@ -9,7 +9,14 @@ const getSubsidiaryOption = (subsidiaryId) => ({
     through: { attributes: ['quantity']}
 })
 
-module.exports.getAllItems = async ({groups, subsidiaryId}, {limit = 10, offset = 0}) => {
+const getNewItemOption = (subsidiaryId) => ({
+    model: Subsidiary,
+    where: {id: subsidiaryId},
+    attributes: [],
+    through: {attributes: []}
+})
+
+module.exports.getAllItems = async ({groups, subsidiaryId, newItem}, {limit = 10, offset = 0}) => {
     let options = { include: [], limit, offset }
     if(groups.length){
         options.include.push({
@@ -18,7 +25,15 @@ module.exports.getAllItems = async ({groups, subsidiaryId}, {limit = 10, offset 
         })
     }
     if(subsidiaryId){
-        options.include.push(getSubsidiaryOption(subsidiaryId))
+        if(newItem) {
+            const excludeItems = (await Item.findAll({
+                include: getNewItemOption(subsidiaryId),
+                attributes: ['id'],
+                raw: true
+            })).map(item => item.id)
+            options.where = {id: {[Op.notIn]: excludeItems}}
+        }
+        else options.include.push(getSubsidiaryOption(subsidiaryId))
     }
     const items = await Item.findAndCountAll(options)
     const totalPages = Math.ceil(items.count/limit)

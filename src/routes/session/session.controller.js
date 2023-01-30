@@ -8,10 +8,10 @@ const includeOpts = {include: Subsidiary}
 module.exports.login = async ({username, password}) =>{
     // ... Validacion del usuario
     const user = await User.findOne({where:{username}, ...includeOpts})
-    if(!user) throw HttpStatusError.notFound("Wrong Credentials")
+    if(!user) throw HttpStatusError.unauthorize("Wrong Credentials")
     // ... Validacion de la contraseña
     const passwordValidated = await verifyPassword(password, user.password)
-    if(!passwordValidated) throw HttpStatusError.forbidden("Wrong Credentials")
+    if(!passwordValidated) throw HttpStatusError.unauthorize("Wrong Credentials")
 
     const session = await Session.create({id: uuid.v4() , userId: user.id});
     return {user, session}

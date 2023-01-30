@@ -56,8 +56,10 @@ module.exports = (sequelize, DataTypes) => {
         user.password = newPass
       },
       beforeUpdate: async function (user) {
-        const newPass = await hashPassword(10, user.password)
-        user.password = newPass
+        if(user.changed('password')){
+          const newPass = await hashPassword(10, user.password)
+          user.password = newPass  
+        }
       }
     }
   });

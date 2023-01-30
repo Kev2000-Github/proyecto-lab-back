@@ -19,11 +19,12 @@ const responseData = (item) => {
 module.exports.itemResponse = responseData
 
 module.exports.get_item = controllerWrapper(async (req, res) => {
-    const {groups} = req.query
+    const {groups, newitem: newItem} = req.query
     const subsidiaryId = req.user?.Subsidiary?.id
     const filters = { 
         groups: groups ? groups.split(",") : [],
-        subsidiaryId
+        subsidiaryId,
+        newItem: newItem === "true"
     }
     const pagination = req.pagination
     const items = await controller.getAllItems(filters, pagination)
