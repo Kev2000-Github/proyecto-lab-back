@@ -1,4 +1,4 @@
-const { Item, Group, Subsidiary, ItemSubsidiary } = require('../../database/models')
+const { Item, Group, Subsidiary, ItemSubsidiary, sequelize } = require('../../database/models')
 const { Op } = require('sequelize')
 const uuid = require('uuid')
 const { HttpStatusError } = require('../../errors/httpStatusError')
@@ -41,14 +41,16 @@ module.exports.getAllItems = async ({groups, subsidiaryId, newItem}, {limit = 10
     return items
 }
 
-module.exports.getItem = async ({itemId, subsidiaryId}) => {
-    const options = subsidiaryId ? {include: getSubsidiaryOption(subsidiaryId)} : {}
+module.exports.getItem = async ({itemId, subsidiaryId, withgroup}) => {
+    const options = {include: []}
+    if(subsidiaryId) options.include.push(getSubsidiaryOption(subsidiaryId))
+    if(withgroup === "true") options.include.push({model: Group})
     const item = await Item.findByPk(itemId, options)
     if(!item) throw HttpStatusError.notFound("Item not found")
     return item
 }
 
-module.exports.createItem = async ({name, description, photo, code}) => {
+module.exports.createItem = async ({name, description, photo, code, groups}) => {
     const inputData = {
         name,
         description,
@@ -57,6 +59,9 @@ module.exports.createItem = async ({name, description, photo, code}) => {
         id: uuid.v4()
     }
     const item = await Item.create(inputData)
+    for(const group of groups){
+      await item.addGroup(group)
+    }
     return item
 }
 
@@ -85,6 +90,9 @@ module.exports.editItem = async ({itemId, itemData}) => {
     const item = await Item.findByPk(itemId)
     if(!item) throw HttpStatusError.notFound("Item not found")
     await item.update(inputData)
+    for(const group of itemData.groups){
+      await item.addGroup(group)
+    }
     return item
 }
 

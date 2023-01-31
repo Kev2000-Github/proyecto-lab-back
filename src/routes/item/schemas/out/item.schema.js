@@ -5,6 +5,6 @@ module.exports = {
       code: {type: "string"},
       name: {type: "string"},
       description: {type: ["string","null"]},
-      photo: {type: ["string","null"]}
+      photo: {type: ["string","null"]},
     }
 }

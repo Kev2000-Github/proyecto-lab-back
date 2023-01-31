@@ -4,6 +4,7 @@ const {groupResponse} = require('../group/group.view')
 
 const responseData = (item) => {
     const isSubsidiaryOptionActive = item.Subsidiaries && item.Subsidiaries.length > 0
+    const groups = item.Groups ? item.Groups.map(({id,name}) => ({id,name})) : null
     const quantity = isSubsidiaryOptionActive ? item.Subsidiaries[0]?.ItemSubsidiary?.quantity : null
     return {
         data: {
@@ -12,7 +13,8 @@ const responseData = (item) => {
             name: item.name,
             description: item.description,
             photo: item.photo,
-            quantity
+            quantity,
+            groups
         }
     }
 }
@@ -42,8 +44,9 @@ module.exports.get_item = controllerWrapper(async (req, res) => {
 
 module.exports.get_item_item_id = controllerWrapper(async (req, res) => {
     const {itemId} = req.params
+    const {withgroup} = req.query
     const subsidiaryId = req.user?.Subsidiary?.id
-    const item = await controller.getItem({itemId, subsidiaryId})
+    const item = await controller.getItem({itemId, subsidiaryId, withgroup})
     res.json(responseData(item))
 })
 

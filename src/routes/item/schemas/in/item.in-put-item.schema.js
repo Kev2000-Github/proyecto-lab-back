@@ -7,7 +7,11 @@ module.exports = {
           code: {type: "string"},
           name: {type: "string"},
           description: {type: "string"},
-          photo: {type: "string"}
+          photo: {type: "string"},
+          groups: {
+            type: "array",
+            items: {type: "string"}
+          }
         },
         additionalProperties: false
       },
